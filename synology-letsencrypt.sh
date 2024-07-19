@@ -73,11 +73,19 @@ cp "${cert_path}/${cert_domain}.crt" "$backupFolder/fullchain.pem"
 cp "${cert_path}/${cert_domain}.key" "$backupFolder/privkey.pem"
 
 # copy cert :: services
+## Qbittorrent
 cp "${cert_path}/${cert_domain}.crt" "$dockerFolder/qbittorrent/config/cert/cert.pem"
 cp "${cert_path}/${cert_domain}.key" "$dockerFolder/qbittorrent/config/cert/privkey.pem"
 
+cp "${cert_path}/${cert_domain}.crt" "/volume1/homes/sookchung1/qbittorrent/config/cert/cert.pem"
+cp "${cert_path}/${cert_domain}.key" "/volume1/homes/sookchung1/qbittorrent/config/cert/privkey.pem"
+
 ## emby
 openssl pkcs12 -inkey "${cert_path}/${cert_domain}.key" -in "${cert_path}/${cert_domain}.crt" -export -out $dockerFolder/emby/config/cert/certificateWithKey.pfx
+
+## portainer
+cp "${cert_path}/${cert_domain}.crt" "/volume1/@docker/volumes/portainer_data/_data/certs/cert.pem"
+cp "${cert_path}/${cert_domain}.key" "/volume1/@docker/volumes/portainer_data/_data/certs/key.pem"
 
 /usr/local/bin/synology-letsencrypt-reload-services.sh "$cert_id"
 EOF
