@@ -60,7 +60,7 @@ cp "${cert_path}/${cert_domain}.issuer.crt" "${archive_path}/chain.pem"
 cp "${cert_path}/${cert_domain}.key" "${archive_path}/privkey.pem"
 echo "$cert_id > $certDEFAULT"
 
-# copy cert :: system_default 
+# copy cert :: system_default
 cp "${cert_path}/${cert_domain}.crt" "$certDefault/cert.pem"
 cp "${cert_path}/${cert_domain}.issuer.crt" "$certDefault/chain.pem"
 cp "${cert_path}/${cert_domain}.crt" "$certDefault/fullchain.pem"
