@@ -81,7 +81,7 @@ cp "${cert_path}/${cert_domain}.crt" "/volume1/homes/sookchung1/qbittorrent/conf
 cp "${cert_path}/${cert_domain}.key" "/volume1/homes/sookchung1/qbittorrent/config/cert/privkey.pem"
 
 ## emby
-openssl pkcs12 -inkey "${cert_path}/${cert_domain}.key" -in "${cert_path}/${cert_domain}.crt" -export -out $dockerFolder/emby/config/cert/certificateWithKey.pfx
+openssl pkcs12 -inkey "${cert_path}/${cert_domain}.key" -in "${cert_path}/${cert_domain}.crt" -export -out $dockerFolder/emby/config/cert/certificateWithKey.pfx -password pass:unknownBoxnohirakikata
 
 ## portainer
 cp "${cert_path}/${cert_domain}.crt" "/volume1/@docker/volumes/portainer_data/_data/certs/cert.pem"
