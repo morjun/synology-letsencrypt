@@ -49,10 +49,35 @@ if [[ ${CREATE_HOOK} == true ]]; then
     cat >"$hook_path" <<EOF
 #!/bin/bash
 
+backupFolder="/var/services/homes/masterjunmo/backup/cert"
+dockerFolder="/volume1/docker"
+certDefault="/usr/syno/etc/certificate/system/default"
+cert_DEFAULT="/usr/syno/etc/certificate/_archive/DEFAULT"
+
 cp "${cert_path}/${cert_domain}.crt" "${archive_path}/cert.pem"
 cp "${cert_path}/${cert_domain}.crt" "${archive_path}/fullchain.pem"
 cp "${cert_path}/${cert_domain}.issuer.crt" "${archive_path}/chain.pem"
 cp "${cert_path}/${cert_domain}.key" "${archive_path}/privkey.pem"
+echo "$cert_id > $certDEFAULT"
+
+# copy cert :: system_default 
+cp "${cert_path}/${cert_domain}.crt" "$certDefault/cert.pem"
+cp "${cert_path}/${cert_domain}.issuer.crt" "$certDefault/chain.pem"
+cp "${cert_path}/${cert_domain}.crt" "$certDefault/fullchain.pem"
+cp "${cert_path}/${cert_domain}.key" "$certDefault/privkey.pem"
+
+# copy cert :: backup
+cp "${cert_path}/${cert_domain}.crt" "$backupFolder/cert.pem"
+cp "${cert_path}/${cert_domain}.issuer.crt" "$backupFolder/chain.pem"
+cp "${cert_path}/${cert_domain}.crt" "$backupFolder/fullchain.pem"
+cp "${cert_path}/${cert_domain}.key" "$backupFolder/privkey.pem"
+
+# copy cert :: services
+cp "${cert_path}/${cert_domain}.crt" "$dockerFolder/qbittorrent/config/cert/cert.pem"
+cp "${cert_path}/${cert_domain}.key" "$dockerFolder/qbittorrent/config/cert/privkey.pem"
+
+## emby
+openssl pkcs12 -inkey "${cert_path}/${cert_domain}.key" -in "${cert_path}/${cert_domain}.crt" -export -out $dockerFolder/emby/config/cert/certificateWithKey.pfx
 
 /usr/local/bin/synology-letsencrypt-reload-services.sh "$cert_id"
 EOF
