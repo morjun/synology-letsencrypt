@@ -76,5 +76,5 @@ $ /usr/local/bin/synology-letsencrypt.sh -c
 To **uninstall** synology-letsencrypt, run the [uninstall script](uninstall.sh). To do that, either download and run the script manually, or use the following cURL command:
 
 ```sh
-curl -sSL https://raw.githubusercontent.com/JessThrysoee/synology-letsencrypt/master/uninstall.sh | bash
+curl -sSL https://raw.githubusercontent.com/morjun/synology-letsencrypt/master/uninstall.sh | bash
 ```
